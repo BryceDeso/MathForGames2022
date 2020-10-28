@@ -31,6 +31,7 @@ namespace MathLibrary
             }
         }
 
+
         public float Magnitude
         {
             get
@@ -47,7 +48,7 @@ namespace MathLibrary
             }
         }
 
-        
+
 
         public Vector2()
         {
@@ -104,8 +105,5 @@ namespace MathLibrary
         {
             return new Vector2(lhs.X / scalar, lhs.Y / scalar);
         }
-
-
-
     }
 }
