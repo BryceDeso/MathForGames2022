@@ -13,4 +13,13 @@
     <ProjectReference Include="..\MathLibrary\MathLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Images\enemy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\player.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

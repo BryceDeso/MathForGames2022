@@ -12,6 +12,7 @@ namespace MathForGames
     class Player : Actor
     {
         private float _speed = 1;
+        private Sprite _sprite;
 
         public float Speed
         {
@@ -32,7 +33,7 @@ namespace MathForGames
         public Player(float x, float y, char icon = ' ', ConsoleColor color = ConsoleColor.White)
             : base(x, y, icon, color)
         {
-            
+            _sprite = new Sprite("Images/player.png");
         }
 
         /// <param name="x">Position on the x axis</param>
@@ -43,7 +44,7 @@ namespace MathForGames
         public Player(float x, float y, Color rayColor, char icon = ' ', ConsoleColor color = ConsoleColor.White)
             : base(x, y, rayColor, icon, color)
         {
-
+            _sprite = new Sprite("Images/player.png");
         }
 
         public override void Update(float deltaTime)
@@ -59,6 +60,12 @@ namespace MathForGames
             Velocity = Velocity.Normalized * Speed;
             
             base.Update(deltaTime);
+        }
+
+        public override void Draw()
+        {
+            _sprite.Draw(_transform);
+            base.Draw();
         }
     }
 }

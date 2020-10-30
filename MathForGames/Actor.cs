@@ -14,12 +14,14 @@ namespace MathForGames
     class Actor
     {
         protected char _icon = ' ';
-        protected Vector3 _position;
         protected Vector2 _velocity;
-        private Vector3 _facing;
         protected Matrix3 _transform;
+        protected Matrix3 _scale;
+        protected Matrix3 _rotation;
+        protected Matrix3 _translation;
         protected ConsoleColor _color;
         protected Color _rayColor;
+
         public bool Started { get; private set; }
 
         public Vector2 Forward
@@ -55,6 +57,7 @@ namespace MathForGames
         }
 
 
+
         /// <param name="x">Position on the x axis</param>
         /// <param name="y">Position on the y axis</param>
         /// <param name="icon">The symbol that will appear when drawn</param>
@@ -66,6 +69,8 @@ namespace MathForGames
             _transform = new Matrix3();
             Position = new Vector2(x, y);
             _velocity = new Vector2();
+            _scale = new Matrix3();
+            _rotation = new Matrix3();
             _color = color;
             Forward = new Vector2(1, 0);
         }
@@ -80,7 +85,10 @@ namespace MathForGames
             : this(x,y,icon,color)
         {
             _transform = new Matrix3();
+            _scale = new Matrix3();
+            _rotation = new Matrix3();
             _rayColor = rayColor;
+            
         }
 
         /// <summary>
@@ -130,7 +138,7 @@ namespace MathForGames
             if(Position.X >= 0 && Position.X < Console.WindowWidth 
                 && Position.Y >= 0  && Position.Y < Console.WindowHeight)
             {
-                Console.SetCursorPosition((int)_position.X, (int)_position.Y);
+                Console.SetCursorPosition((int)Position.X, (int)Position.Y);
                 Console.Write(_icon);
             }
             
