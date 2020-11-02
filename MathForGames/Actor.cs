@@ -15,10 +15,10 @@ namespace MathForGames
     {
         protected char _icon = ' ';
         protected Vector2 _velocity;
-        protected Matrix3 _transform;
-        protected Matrix3 _scale;
-        protected Matrix3 _rotation;
-        protected Matrix3 _translation;
+        protected Matrix3 _transform = new Matrix3();
+        protected Matrix3 _scale = new Matrix3();
+        protected Matrix3 _rotation = new Matrix3();
+        protected Matrix3 _translation = new Matrix3();
         protected ConsoleColor _color;
         protected Color _rayColor;
 
@@ -27,9 +27,7 @@ namespace MathForGames
         public Vector2 Forward
         {
             get { return new Vector2(_transform.m11, _transform.m21); }
-            set { _transform.m11 = value.X; _transform.m21 = value.Y; }
         }
-
 
         public Vector2 Position
         {
@@ -39,8 +37,9 @@ namespace MathForGames
             }
             set
             {
-                _transform.m13 = value.X;
-                _transform.m23 = value.Y;
+                _translation.m13 = value.X;
+
+                _translation.m23 = value.Y;
             }
         }
 
@@ -72,7 +71,6 @@ namespace MathForGames
             _scale = new Matrix3();
             _rotation = new Matrix3();
             _color = color;
-            Forward = new Vector2(1, 0);
         }
 
 
@@ -90,16 +88,6 @@ namespace MathForGames
             _rayColor = rayColor;          
         }
 
-        public Matrix3 Scale(float scaleX, float scaleY)
-        {
-            return new Matrix3(scaleX, 0, 0, 0, scaleX, 0, 0, 0, 0);
-        }
-
-        public Matrix3 Rotate(float rotateX, float rotateY)
-        {
-            return new Matrix3(0, rotateY, 0, rotateX, 0, 0, 0, 0, 0);
-        }
-
         /// <summary>
         /// Updates the actors forward vector to be
         /// the last direction it moved in
@@ -109,17 +97,43 @@ namespace MathForGames
             if (_velocity.Magnitude <= 0)
                 return;
 
-            Forward = Velocity.Normalized;
+        }
+
+        public void SetTranslate(Vector2 position)
+        {
+            _translation.m13 = position.X;
+            _translation.m23 = position.Y;
+        }
+
+        public void SetRotation(float radians)
+        {
+            _rotation.m11 = (float)Math.Cos(radians);
+            _rotation.m12 = (float)Math.Sin(radians);
+            _rotation.m21 = (float)Math.Sin(-radians);
+            _rotation.m22 = (float)Math.Cos(radians);
+        }
+
+        public void SetScale(float x, float y)
+        {
+            _scale.m11 = x;
+            _scale.m22 = y;
+        }
+
+        private void UpdateTransform()
+        {
+            _transform = _translation * _rotation * _scale;
         }
 
         public virtual void Start()
         {
             Started = true;
         }
-
+ 
         
         public virtual void Update(float deltaTime)
         {
+            UpdateTransform();
+
             //Before the actor is moved, update the direction it's facing
             UpdateFacing();
 
@@ -159,6 +173,5 @@ namespace MathForGames
         {
             Started = false;
         }
-
     }
 }

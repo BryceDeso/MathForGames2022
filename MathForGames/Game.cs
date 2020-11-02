@@ -194,14 +194,15 @@ namespace MathForGames
             //Create the actors to add to our scene
             Actor actor = new Actor(0,0,Color.GREEN,'■',ConsoleColor.Green);
             Enemy enemy = new Enemy(10, 10, Color.GREEN, '■', ConsoleColor.Green);
-            Player player = new Player(0, 1,Color.BLUE, '@', ConsoleColor.Red);
+            Player player = new Player(0, 1,Color.BLUE, ' ', ConsoleColor.Red);
             actor.Velocity.X = 1;
             enemy.Target = player;
             player.Speed = 5;
-<<<<<<< Updated upstream
-            player.Scale(5, 1);
-=======
->>>>>>> Stashed changes
+            player.SetScale(1, 2);
+            player.SetRotation(1.55f);
+            player.SetTranslate(new Vector2(1, 2));
+
+            
 
             //Add actors to the scenes
             scene1.AddActor(player);
@@ -217,8 +218,6 @@ namespace MathForGames
             //Sets the current scene to be the starting scene index
             SetCurrentScene(startingSceneIndex);
         }
-
-
 
         /// <summary>
         /// Called every frame
