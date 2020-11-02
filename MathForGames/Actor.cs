@@ -91,6 +91,16 @@ namespace MathForGames
             
         }
 
+        public Matrix3 Scale(float scaleX, float scaleY)
+        {
+            return new Matrix3(scaleX, 0, 0, 0, scaleX, 0, 0, 0, 0);
+        }
+
+        public Matrix3 Rotate(float rotateX, float rotateY)
+        {
+            return new Matrix3(0, rotateY, 0, rotateX, 0, 0, 0, 0, 0);
+        }
+
         /// <summary>
         /// Updates the actors forward vector to be
         /// the last direction it moved in
