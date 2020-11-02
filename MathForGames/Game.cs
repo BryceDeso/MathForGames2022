@@ -198,7 +198,10 @@ namespace MathForGames
             actor.Velocity.X = 1;
             enemy.Target = player;
             player.Speed = 5;
+<<<<<<< Updated upstream
             player.Scale(5, 1);
+=======
+>>>>>>> Stashed changes
 
             //Add actors to the scenes
             scene1.AddActor(player);

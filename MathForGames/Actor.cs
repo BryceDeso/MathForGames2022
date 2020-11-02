@@ -87,8 +87,7 @@ namespace MathForGames
             _transform = new Matrix3();
             _scale = new Matrix3();
             _rotation = new Matrix3();
-            _rayColor = rayColor;
-            
+            _rayColor = rayColor;          
         }
 
         public Matrix3 Scale(float scaleX, float scaleY)
