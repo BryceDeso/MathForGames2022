@@ -200,9 +200,9 @@ namespace MathForGames
             player.Speed = 5;
             player.SetScale(1, 2);
             player.SetRotation(1.55f);
-            player.SetTranslate(new Vector2(1, 2));
+            player.SetTranslate(new Vector2(15, 11));
 
-            
+            player.AddChildActor(enemy);
 
             //Add actors to the scenes
             scene1.AddActor(player);
@@ -230,6 +230,8 @@ namespace MathForGames
 
             _scenes[_currentSceneIndex].Update(deltaTime);
         }
+
+        
 
         //Used to display objects and other info on the screen.
         public void Draw()

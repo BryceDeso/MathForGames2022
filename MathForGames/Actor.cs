@@ -108,6 +108,7 @@ namespace MathForGames
             child._parent = this;
         }
 
+        /*
         public bool RemoveChild(Actor child)
         {
             bool childremoved = false;
@@ -136,7 +137,7 @@ namespace MathForGames
                 return childremoved;
             }
         }
-
+        */
         /// <summary>
         /// Updates the actors forward vector to be
         /// the last direction it moved in
@@ -173,6 +174,23 @@ namespace MathForGames
             _localTransform = _translation * _rotation * _scale;
         }
 
+        public void UpdateGlobalTransform()
+        {
+            if(_parent != null)
+            {
+                _globalTransform = _parent._globalTransform * _localTransform;
+            }
+            else
+            {
+                _globalTransform = _localTransform;
+            }
+
+            for (int i = 0; i < _children.Length; i++)
+            {
+
+            }
+        }
+
         public virtual void Start()
         {
             Started = true;
@@ -182,6 +200,8 @@ namespace MathForGames
         public virtual void Update(float deltaTime)
         {
             UpdateTransform();
+
+            UpdateGlobalTransform();
 
             //Before the actor is moved, update the direction it's facing
             UpdateFacing();
