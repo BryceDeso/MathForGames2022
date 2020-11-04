@@ -58,7 +58,7 @@ namespace MathForGames
                 return false;
 
             //Find the vector representing the distance between the actor and its target
-            Vector2 direction = Target.Position - Position;
+            Vector2 direction = Target.LocalPosition - LocalPosition;
             //Get the magnitude of the distance vector
             float distance = direction.Magnitude;
             //Use the inverse cosine to find the angle of the dot product in radians
