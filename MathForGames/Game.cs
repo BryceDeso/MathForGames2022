@@ -149,7 +149,6 @@ namespace MathForGames
             _currentSceneIndex = index;
         }
 
-
         /// <summary>
         /// Returns true while a key is being pressed
         /// </summary>
@@ -159,7 +158,6 @@ namespace MathForGames
         {
             return Raylib.IsKeyDown((KeyboardKey)key);
         }
-
 
         /// <summary>
         /// Returns true while if key was pressed once

@@ -112,7 +112,7 @@ namespace MathForGames
         public bool RemoveChild(Actor child)
         {
             bool childremoved = false;
-            if(child == null)
+            if (child == null)
             {
                 return false;
             }
@@ -120,9 +120,9 @@ namespace MathForGames
             Actor[] tempArray = new Actor[_children.Length - 1];
 
             int j = 0;
-            for(int i = 0; i < _children.Length; i++)
+            for (int i = 0; i < _children.Length; i++)
             {
-                if(child != _children[i])
+                if (child != _children[i])
                 {
                     tempArray[j] = _children[i];
                     j++;
@@ -185,9 +185,9 @@ namespace MathForGames
                 _globalTransform = _localTransform;
             }
 
-            for (int i = 0; i < _children.Length; i++)
+            for(int i = 0; i < _children.Length; i++)
             {
-
+                _children[i].UpdateGlobalTransform();
             }
         }
 
