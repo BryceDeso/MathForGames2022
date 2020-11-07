@@ -24,6 +24,7 @@ namespace MathForGames
         protected Color _rayColor;
         protected Actor _parent;
         protected Actor[] _children = new Actor[0];
+        private float _collisionRadius;
 
         public bool Started { get; private set; }
 
@@ -149,6 +150,16 @@ namespace MathForGames
 
         }
 
+        public bool CheckCollision(Actor other)
+        {
+            return false;
+        }
+
+        public virtual void OnCollision(Actor other)
+        {
+
+        }
+
         public void SetTranslate(Vector2 position)
         {
             _translation.m13 = position.X;
@@ -195,8 +206,7 @@ namespace MathForGames
         {
             Started = true;
         }
- 
-        
+       
         public virtual void Update(float deltaTime)
         {
             UpdateTransform();
