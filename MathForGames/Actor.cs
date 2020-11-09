@@ -211,7 +211,7 @@ namespace MathForGames
             {
                 _globalTransform = _localTransform;
             }
-            float i = .2f;
+            float i = .05f;
 
             Rotate(i);
 
