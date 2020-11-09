@@ -40,8 +40,8 @@ namespace MathForGames
         public Enemy(float x, float y, Color rayColor, char icon = ' ', ConsoleColor color = ConsoleColor.White)
             : base(x, y, rayColor, icon, color)
         {
-            _sprite = new Sprite("Images/enemy.png");
             _alertColor = Color.RED;
+            _sprite = new Sprite("Images/enemy.png");
         }
 
         /// <summary>
