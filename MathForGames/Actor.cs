@@ -109,13 +109,13 @@ namespace MathForGames
             child._parent = this;
         }
 
-        /*
+        
         public bool RemoveChild(Actor child)
         {
             bool childremoved = false;
             if (child == null)
             {
-                return false;
+                childremoved = false;
             }
 
             Actor[] tempArray = new Actor[_children.Length - 1];
@@ -125,8 +125,8 @@ namespace MathForGames
             {
                 if (child != _children[i])
                 {
-                    tempArray[j] = _children[i];
                     j++;
+                    tempArray[j] = _children[i];                    
                 }
                 else
                 {
@@ -135,10 +135,11 @@ namespace MathForGames
 
                 _children = tempArray;
                 child._parent = null;
-                return childremoved;
+                
             }
+            return childremoved;
         }
-        */
+        
         /// <summary>
         /// Updates the actors forward vector to be
         /// the last direction it moved in
@@ -210,6 +211,10 @@ namespace MathForGames
             {
                 _globalTransform = _localTransform;
             }
+            float i = .2f;
+
+            Rotate(i);
+
         }
 
         public virtual void Start()
