@@ -211,8 +211,9 @@ namespace MathForGames
             {
                 _globalTransform = _localTransform;
             }
-            float i = .05f;
 
+            //Sets the speed of rotation for any actors on the screen.
+            float i = .05f;
             Rotate(i);
 
         }
