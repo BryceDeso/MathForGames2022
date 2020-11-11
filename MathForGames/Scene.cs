@@ -8,7 +8,7 @@ namespace MathForGames
     class Scene
     {
         private Actor[] _actors;
-        private Matrix3 _transform;
+        private Matrix3 _transform = new Matrix3();
 
         public bool Started { get; private set; }
 
@@ -111,9 +111,19 @@ namespace MathForGames
 
         
         //Checks to see if any actor in the scene has collieded with another actor.
-        private void CheckCollision()
+        private bool CheckCollision(Actor actor1, Actor actor2)
         {
-            
+            float distance = (float)Math.Sqrt((actor1.WorldPosition.X - actor2.WorldPosition.X) +
+                                              (actor1.WorldPosition.Y - actor2.WorldPosition.Y));
+
+            if(distance == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public virtual void Start()
@@ -130,7 +140,7 @@ namespace MathForGames
 
                 _actors[i].Update(deltaTime);
             }
-            CheckCollision();
+            //CheckCollision();
         }
 
         public virtual void Draw()
