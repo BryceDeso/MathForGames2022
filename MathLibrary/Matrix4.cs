@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MathLibrary
 {
-    class Matrix4
+    public class Matrix4
     {
         public float m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44;
 
@@ -35,7 +35,7 @@ namespace MathLibrary
                     -(float)Math.Sin(radians), (float)Math.Cos(radians), 0, 0,
                     0, 0, 1, 0,
                     0, 0, 0, 1
-                );
+                ); 
 
         }
 
@@ -63,6 +63,52 @@ namespace MathLibrary
                 );
         }
 
+        
+
+        public static Matrix4 CreateRotationZ(float radian)
+        {
+            return new Matrix4
+                (
+                    (float)Math.Cos(radian), (float)Math.Sin(radian), 0, 0,
+                    (float)-Math.Sin(radian), (float)Math.Cos(radian), 0, 0,
+                    0, 0, 1, 0,
+                    0, 0, 0, 1         
+                );
+        }
+
+        public static Matrix4 CreateRotationY(float radian)
+        {
+            return new Matrix4
+                (
+                    (float)Math.Cos(radian), 0, (float)-Math.Sin(radian), 0,
+                    0, 0, 1, 0,
+                    (float)Math.Sin(radian), 0, (float)Math.Cos(radian), 0,
+                    0, 0, 0, 1
+                );
+        }
+
+        public static Matrix4 CreateRotationX(float radian)
+        {
+            return new Matrix4
+                (
+                    1, 0, 0, 0,
+                    0, (float)Math.Cos(radian), (float)Math.Sin(radian), 0,
+                    0, (float)-Math.Sin(radian), (float)Math.Cos(radian), 0,
+                    0, 0, 0, 1
+                );
+        }
+
+        public static Vector4 operator *(Matrix4 matrix, Vector4 vector)
+        {
+            return new Vector4
+                (
+                    matrix.m11 * vector.X + matrix.m12 * vector.Y + matrix.m13 * vector.Z + matrix.m14 * vector.W,
+                    matrix.m21 * vector.X + matrix.m22 * vector.Y + matrix.m23 * vector.Z + matrix.m24 * vector.W,
+                    matrix.m31 * vector.X + matrix.m32 * vector.Y + matrix.m33 * vector.Z + matrix.m34 * vector.W,
+                    matrix.m31 * vector.X + matrix.m32 * vector.Y + matrix.m33 * vector.Z + matrix.m34 * vector.W
+                );
+        }
+
         public static Matrix4 operator -(Matrix4 lhs, Matrix4 rhs)
         {
             return new Matrix4(lhs.m11 - rhs.m11, lhs.m12 - rhs.m12, lhs.m13 - rhs.m13, lhs.m14 - rhs.m14,
@@ -78,7 +124,7 @@ namespace MathLibrary
             (
                 //Row 1, Column 1
                 lhs.m11 * rhs.m11 + lhs.m12 * rhs.m21 + lhs.m13 * rhs.m31 + lhs.m14 * rhs.m41,
-                //Row 1, Column
+                //Row 1, Column 2
                 lhs.m11 * rhs.m12 + lhs.m12 * rhs.m22 + lhs.m13 * rhs.m32 + lhs.m14 * rhs.m42,
                 //Row 1, Column 3
                 lhs.m11 * rhs.m13 + lhs.m12 * rhs.m23 + lhs.m13 * rhs.m33 + lhs.m14 * rhs.m43,

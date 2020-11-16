@@ -229,7 +229,7 @@ namespace UnitTestProject
         public void Matrix4SetRotateX()
         {
             Matrix4 m4a = new Matrix4();
-            m4a = Transpose(Matrix4.CreateRotationX(4.5f));
+            m4a = Matrix4.CreateRotationX(4.5f);
 
             Assert.IsTrue(compare(m4a,
                 new Matrix4(1, 0, 0, 0, 0, -0.210796f, -0.97753f, 0, 0, 0.97753f, -0.210796f, 0, 0, 0, 0, 1)));
@@ -239,7 +239,7 @@ namespace UnitTestProject
         public void Matrix4SetRotateY()
         {
             Matrix4 m4b = new Matrix4();
-            m4b = Transpose(Matrix4.CreateRotationY(-2.6f));
+            m4b = Matrix4.CreateRotationY(-2.6f);
 
             Assert.IsTrue(compare(m4b,
                 new Matrix4(-0.856889f, 0, 0.515501f, 0, 0, 1, 0, 0, -0.515501f, 0, -0.856889f, 0, 0, 0, 0, 1)));
@@ -259,7 +259,7 @@ namespace UnitTestProject
         public void Matrix4SetRotateZ()
         {
             Matrix4 m4c = new Matrix4();
-            m4c = Transpose(Matrix4.CreateRotationZ(0.72f));
+            m4c = Matrix4.CreateRotationZ(0.72f);
 
             Assert.IsTrue(compare(m4c,
                 new Matrix4(0.751806f, 0.659385f, 0, 0, -0.659385f, 0.751806f, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)));
@@ -282,7 +282,7 @@ namespace UnitTestProject
         public void Vector4MatrixTransform()
         {
             Matrix4 m4b = new Matrix4();
-            m4b = Matrix4.CreateRotationY(-2.6f);
+            m4b = Transpose(Matrix4.CreateRotationY(-2.6f));
 
             Vector4 v4a = new Vector4(13.5f, -48.23f, 862, 0);
             Vector4 v4b = m4b * v4a;
@@ -295,7 +295,7 @@ namespace UnitTestProject
         public void Vector4MatrixTransform2()
         {
             Matrix4 m4c = new Matrix4();
-            m4c = Matrix4.CreateRotationZ(0.72f);
+            m4c = Transpose(Matrix4.CreateRotationZ(0.72f));
 
             Vector4 v4a = new Vector4(13.5f, -48.23f, 862, 0);
             Vector4 v4b = m4c * v4a;
@@ -323,10 +323,10 @@ namespace UnitTestProject
         public void Matrix4Multiply()
         {
             Matrix4 m4b = new Matrix4();
-            m4b = Matrix4.CreateRotationY(-2.6f);
+            m4b = Transpose(Matrix4.CreateRotationY(-2.6f));
 
             Matrix4 m4c = new Matrix4();
-            m4c = Matrix4.CreateRotationZ(0.72f);
+            m4c = Transpose(Matrix4.CreateRotationZ(0.72f));
 
             Matrix4 m4d = Transpose(m4c * m4b);
 
@@ -370,7 +370,7 @@ namespace UnitTestProject
         {
             // homogeneous point translation
             Matrix4 m4c = new Matrix4();
-            m4c = Matrix4.CreateRotationZ(2.2f);
+            m4c = Transpose(Matrix4.CreateRotationZ(2.2f));
             m4c.m14 = 55; m4c.m24 = 44; m4c.m34 = 99; m4c.m44 = 1;
 
             Vector4 v4a = new Vector4(13.5f, -48.23f, -54, 1);
@@ -414,7 +414,7 @@ namespace UnitTestProject
         {
             // homogeneous point translation
             Matrix4 m4c = new Matrix4();
-            m4c = Matrix4.CreateRotationZ(2.2f);
+            m4c = Transpose(Matrix4.CreateRotationZ(2.2f));
             m4c.m14 = 55; m4c.m24 = 44; m4c.m34 = 99; m4c.m44 = 1;
 
             Vector4 v4a = new Vector4(13.5f, -48.23f, -54, 0);

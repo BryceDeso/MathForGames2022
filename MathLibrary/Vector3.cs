@@ -63,13 +63,16 @@ namespace MathLibrary
             }
         }
 
-
-
         public Vector3()
         {
             _x = 0;
             _y = 0;
             _z = 0;
+        }
+
+        public static Vector3 CrossProduct(Vector3 a, Vector3 b)
+        {
+            return new Vector3(a.Y * b.Z - a.Z * b.Y, a.Z * b.X - a.X * b.Z, a.X * b.Y - a.Y * b.X);
         }
 
         public Vector3(float x, float y, float z)
@@ -114,6 +117,11 @@ namespace MathLibrary
         }
 
         public static Vector3 operator *(float scalar, Vector3 lhs)
+        {
+            return new Vector3(lhs.X * scalar, lhs.Y * scalar, lhs.Z * scalar);
+        }
+
+        public static Vector3 operator *(Vector3 lhs, float scalar)
         {
             return new Vector3(lhs.X * scalar, lhs.Y * scalar, lhs.Z * scalar);
         }

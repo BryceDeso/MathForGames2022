@@ -57,6 +57,16 @@ namespace MathLibrary
                 );
         }
 
+        public static Vector3 operator *(Matrix3 matrix, Vector3 vector)
+        {
+            return new Vector3
+                (
+                    matrix.m11 * vector.X + matrix.m12 * vector.Y + matrix.m13 * vector.Z,
+                    matrix.m21 * vector.X + matrix.m22 * vector.Y + matrix.m23 * vector.Z,
+                    matrix.m31 * vector.X + matrix.m32 * vector.Y + matrix.m33 * vector.Z
+                );
+        }
+
         public static Matrix3 operator -(Matrix3 lhs, Matrix3 rhs)
         {
             return new Matrix3(lhs.m11 - rhs.m11, lhs.m12 - rhs.m12, lhs.m13 - rhs.m13,
