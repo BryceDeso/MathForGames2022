@@ -81,7 +81,7 @@ namespace MathLibrary
             return new Matrix4
                 (
                     (float)Math.Cos(radian), 0, (float)-Math.Sin(radian), 0,
-                    0, 0, 1, 0,
+                    0, 1, 0, 0,
                     (float)Math.Sin(radian), 0, (float)Math.Cos(radian), 0,
                     0, 0, 0, 1
                 );

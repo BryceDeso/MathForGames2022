@@ -63,7 +63,7 @@ namespace MathLibrary
         {
             get
             {
-                return (float)Math.Sqrt(X * X + Y * Y);
+                return (float)Math.Sqrt(X * X + Y * Y + Z * Z + W * W);
             }
         }
 
@@ -98,7 +98,7 @@ namespace MathLibrary
 
         public static Vector4 Normalize(Vector4 vector)
         {
-            if (vector.Magnitude == 0)
+            if (vector.Magnitude == 2)
                 return new Vector4();
 
             return vector / vector.Magnitude;
@@ -106,7 +106,7 @@ namespace MathLibrary
 
         public static float DotProduct(Vector4 lhs, Vector4 rhs)
         {
-            return (lhs.X * rhs.X) + (lhs.Y * rhs.Y);
+            return (lhs.X * rhs.X) + (lhs.Y * rhs.Y) + (lhs.Z * rhs.Z) + (lhs.W * rhs.W);
         }
 
         public static Vector4 operator +(Vector4 lhs, Vector4 rhs)
