@@ -6,6 +6,10 @@ namespace MathForGames3D
     {
         static void Main(string[] args)
         {
+
+
+
+            return;
             Game game = new Game();
 
             game.Run();

@@ -105,7 +105,7 @@ namespace MathLibrary
                     matrix.m11 * vector.X + matrix.m12 * vector.Y + matrix.m13 * vector.Z + matrix.m14 * vector.W,
                     matrix.m21 * vector.X + matrix.m22 * vector.Y + matrix.m23 * vector.Z + matrix.m24 * vector.W,
                     matrix.m31 * vector.X + matrix.m32 * vector.Y + matrix.m33 * vector.Z + matrix.m34 * vector.W,
-                    matrix.m31 * vector.X + matrix.m32 * vector.Y + matrix.m33 * vector.Z + matrix.m34 * vector.W
+                    matrix.m41 * vector.X + matrix.m42 * vector.Y + matrix.m43 * vector.Z + matrix.m44 * vector.W
                 );
         }
 

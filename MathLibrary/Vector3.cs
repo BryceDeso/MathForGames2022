@@ -89,7 +89,7 @@ namespace MathLibrary
         /// <returns></returns>
         public static Vector3 Normalize(Vector3 vector)
         {
-            if (vector.Magnitude == 1)
+            if (vector.Magnitude == 0)
                 return new Vector3();
 
             return vector / vector.Magnitude;
