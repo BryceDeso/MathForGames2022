@@ -13,6 +13,7 @@ namespace MathForGames
     {
         private float _speed = 1;
         private Sprite _sprite;
+        private bool _canMove = true;
 
         public float Speed
         {
@@ -47,18 +48,33 @@ namespace MathForGames
             _sprite = new Sprite("Images/player.png");
         }
 
+        public void DisableControls()
+        {
+            _canMove = false;
+        }
+
+        public override void Start()
+        {
+            GameManager.onLose += DisableControls;
+            base.Start();
+        }
+
         public override void Update(float deltaTime)
         {
+            if(!_canMove)
+            {
+                return;
+            }
+
             //Gets the player's input to determine which direction the actor will move in on each axis 
-            int xDirection = -Convert.ToInt32(Game.GetKeyDown((int)KeyboardKey.KEY_A))
-                + Convert.ToInt32(Game.GetKeyDown((int)KeyboardKey.KEY_D));
-            int yDirection = -Convert.ToInt32(Game.GetKeyDown((int)KeyboardKey.KEY_W))
-                + Convert.ToInt32(Game.GetKeyDown((int)KeyboardKey.KEY_S));
+            int xDirection = -Convert.ToInt32(Game.GetKeyDown((int)KeyboardKey.KEY_LEFT))
+                + Convert.ToInt32(Game.GetKeyDown((int)KeyboardKey.KEY_RIGHT));
+            int yDirection = -Convert.ToInt32(Game.GetKeyDown((int)KeyboardKey.KEY_UP))
+                + Convert.ToInt32(Game.GetKeyDown((int)KeyboardKey.KEY_DOWN));
 
             //Set the actors current velocity to be the a vector with the direction found scaled by the speed
-            Velocity = new Vector2(xDirection, yDirection);
-            Velocity = Velocity.Normalized * Speed;
-            
+            Acceleration = new Vector2(xDirection, yDirection);
+
             base.Update(deltaTime);
         }
 

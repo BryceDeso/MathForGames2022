@@ -74,6 +74,25 @@ namespace MathForGames
             return actorRemoved;
         }
 
+        private void CheckCollision()
+        {
+            for (int i = 0; i < _actors.Length; i++)
+            {
+                for (int j = 0; i < _actors.Length; j++)
+                {
+                    if(i >- _actors.Length)
+                    {
+                        break;
+                    }
+
+                    if(_actors[i].CheckCollision(_actors[j]) && i != j)
+                    {
+                        _actors[i].OnCollision(_actors[j]);
+                    }
+                }
+            }
+        }
+
         public bool RemoveActor(Actor actor)
         {
             //Check to see if the actor was null
@@ -109,23 +128,6 @@ namespace MathForGames
             return actorRemoved;
         }
 
-        
-        //Checks to see if any actor in the scene has collieded with another actor.
-        private bool CheckCollision(Actor actor1, Actor actor2)
-        {
-            float distance = (float)Math.Sqrt((actor1.WorldPosition.X - actor2.WorldPosition.X) +
-                                              (actor1.WorldPosition.Y - actor2.WorldPosition.Y));
-
-            if(distance == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public virtual void Start()
         {
             Started = true;
@@ -140,7 +142,7 @@ namespace MathForGames
 
                 _actors[i].Update(deltaTime);
             }
-            //CheckCollision();
+            CheckCollision();
         }
 
         public virtual void Draw()

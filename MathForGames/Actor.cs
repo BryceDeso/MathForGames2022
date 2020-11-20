@@ -14,7 +14,8 @@ namespace MathForGames
     class Actor
     {
         protected char _icon = ' ';
-        protected Vector2 _velocity;
+        private Vector2 _velocity = new Vector2();
+        private Vector2 acceleration = new Vector2();
         protected Matrix3 _globalTransform = new Matrix3();
         protected Matrix3 _localTransform = new Matrix3();
         protected Matrix3 _scale = new Matrix3();
@@ -24,13 +25,23 @@ namespace MathForGames
         protected Color _rayColor;
         protected Actor _parent;
         protected Actor[] _children = new Actor[0];
-        private float _collisionRadius;
+        protected float _rotationAngle;
+        protected float _collisionRadius;
+        private float _maxSpeed = 5;
 
         public bool Started { get; private set; }
 
         public Vector2 Forward
         {
-            get { return new Vector2(_localTransform.m11, _localTransform.m21); }
+            get
+            {
+                return new Vector2(_globalTransform.m11, _globalTransform.m21);
+            }
+            set
+            {
+                Vector2 lookposition = LocalPosition + value.Normalized;
+                LookAt(lookposition);
+            }
         }
 
         public Vector2 WorldPosition
@@ -64,6 +75,30 @@ namespace MathForGames
             }
         }
 
+        protected Vector2 Acceleration 
+        { 
+            get 
+            { 
+                return acceleration; 
+            } 
+            set 
+            { 
+                acceleration = value; 
+            } 
+        }
+
+        public float MaxSpeed
+        {
+            get
+            {
+                return _maxSpeed;
+            }
+            set
+            {
+                _maxSpeed = value;
+            }
+        }
+
 
 
         /// <param name="x">Position on the x axis</param>
@@ -92,7 +127,7 @@ namespace MathForGames
             : this(x,y,icon,color)
         {
             _localTransform = new Matrix3();
-            _rayColor = rayColor;          
+            _rayColor = rayColor;
         }
 
         public void AddChildActor(Actor child)
@@ -138,21 +173,45 @@ namespace MathForGames
             }
             return childremoved;
         }
-        
-        /// <summary>
-        /// Updates the actors forward vector to be
-        /// the last direction it moved in
-        /// </summary>
-        private void UpdateFacing()
-        {
-            if (_velocity.Magnitude <= 0)
-                return;
 
+        public void LookAt(Vector2 position)
+        {
+            //Find the direction that the actor should look in
+            Vector2 direction = (position - LocalPosition).Normalized;
+
+            //Use the dotproduct to find the angle the actor needs to rotate
+            float dotProd = Vector2.DotProduct(Forward, direction);
+            if (Math.Abs(dotProd) > 1)
+                return;
+            float angle = (float)Math.Acos(dotProd);
+
+            //Find a perpindicular vector to the direction
+            Vector2 perp = new Vector2(direction.Y, -direction.X);
+
+            //Find the dot product of the perpindicular vector and the current forward
+            float perpDot = Vector2.DotProduct(perp, Forward);
+
+            //If the result isn't 0, use it to change the sign of the angle to be either positive or negative
+            if (perpDot != 0)
+                angle *= -perpDot / Math.Abs(perpDot);
+
+            Rotate(angle);
+        }
+
+        /// <summary>
+        /// Checks to see if this actor overlaps another.
+        /// </summary>
+        /// <param name="other">The actor that this actor is checking collision against</param>
+        /// <returns></returns>
+        public bool CheckCollision(Actor other)
+        {
+            float distance = (other.WorldPosition - WorldPosition).Magnitude;
+            return distance <= other._collisionRadius + _collisionRadius;
         }
 
         public virtual void OnCollision(Actor other)
         {
-            
+
         }
 
         public void SetTranslate(Vector2 position)
@@ -180,6 +239,17 @@ namespace MathForGames
 
         }
 
+        /// <summary>
+        /// Updates the actors forward vector to be
+        /// the last direction it moved in
+        /// </summary>
+        private void UpdateFacing()
+        {
+            if (_velocity.Magnitude <= 0)
+                return;
+            Forward = Velocity.Normalized;
+        }
+
         private void UpdateTransform()
         {
             _localTransform = _translation * _rotation * _scale;
@@ -197,9 +267,8 @@ namespace MathForGames
             }
 
             //Sets the speed of rotation for any actors on the screen.
-            float i = .05f;
-            Rotate(i);
-
+            //float i = .05f;
+            //Rotate(i);
         }
 
         public virtual void Start()
@@ -215,6 +284,14 @@ namespace MathForGames
 
             //Before the actor is moved, update the direction it's facing
             UpdateFacing();
+
+
+            Velocity += Acceleration;
+
+            if(Velocity.Magnitude > MaxSpeed)
+            {
+                Velocity = Velocity.Normalized * MaxSpeed;
+            }
 
             //Increase position by the current velocity
             LocalPosition += _velocity * deltaTime;
@@ -232,13 +309,6 @@ namespace MathForGames
                 (int)((WorldPosition.Y + Forward.Y) * 32),
                 Color.WHITE
             );
-
-            Raylib.DrawCircleLines(
-                (int)(WorldPosition.X * 32),
-                (int)(WorldPosition.Y * 32),
-                30, 
-                Color.WHITE
-                );
 
             //Changes the color of the console text to be this actors color
             Console.ForegroundColor = _color;

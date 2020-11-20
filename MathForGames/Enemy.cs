@@ -30,6 +30,7 @@ namespace MathForGames
             : base(x, y, icon, color)
         {
             _sprite = new Sprite("Images/enemy.png");
+            _collisionRadius = 5;
         }
 
         /// <param name="x">Position on the x axis</param>
@@ -42,6 +43,7 @@ namespace MathForGames
         {
             _alertColor = Color.RED;
             _sprite = new Sprite("Images/enemy.png");
+            _collisionRadius = 5;
         }
 
         /// <summary>
@@ -73,19 +75,58 @@ namespace MathForGames
             return false;
         }
 
+        public override void OnCollision(Actor other)
+        {
+            if (other is Player)
+            {
+                GameManager.onLose?.Invoke();
+            }
+            base.OnCollision(other);
+        }
+
+        public override void Start()
+        {
+            GameManager.onLose += DrawLoseText;
+            base.Start();
+        }
+
         public override void Update(float deltaTime)
         {
             //If the target can be seen change the color to red
             //If the target can't be seen change the color to blue
-            if(CheckTargetInSight(1.5f, 5))
-            {
-                _rayColor = Color.RED;
-            }
-            else
-            {
-                _rayColor = Color.BLUE;
-            }
+            //if(CheckTargetInSight(1.5f, 5))
+            //{
+            //    _rayColor = Color.RED;
+            //}
+            //else
+            //{
+            //    _rayColor = Color.BLUE;
+            //}
             base.Update(deltaTime);
         }
+
+        public override void Draw()
+        {
+            Raylib.DrawCircleLines(
+                (int)(WorldPosition.X * 32),
+                (int)(WorldPosition.Y * 32),
+                _collisionRadius * 6,
+                Color.WHITE
+                );
+
+            _sprite.Draw(_globalTransform);
+            base.Draw();
+        }
+
+        public void DrawLoseText()
+        {
+            Raylib.DrawText("You lose!\nPress esc to quit.", 15, 11, 10, Color.WHITE);
+        }
+
+        public override void End()
+        {
+            base.End();
+        }
+
     }
 }
