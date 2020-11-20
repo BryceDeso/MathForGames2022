@@ -207,7 +207,7 @@ namespace MathForGames
             //scene1.AddActor(actor);
             scene1.AddActor(enemy);
             scene2.AddActor(player);
-            
+
             //Sets the starting scene index and adds the scenes to the scenes array
             int startingSceneIndex = 0;
             startingSceneIndex = AddScene(scene1);
@@ -225,7 +225,7 @@ namespace MathForGames
         {
             if (!_scenes[_currentSceneIndex].Started)
                 _scenes[_currentSceneIndex].Start();
-
+            
             _scenes[_currentSceneIndex].Update(deltaTime);
         }
 

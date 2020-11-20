@@ -108,7 +108,6 @@ namespace MathForGames
             _children = tempArray;
             child._parent = this;
         }
-
         
         public bool RemoveChild(Actor child)
         {
@@ -153,7 +152,7 @@ namespace MathForGames
 
         public virtual void OnCollision(Actor other)
         {
-
+            
         }
 
         public void SetTranslate(Vector2 position)
@@ -233,6 +232,13 @@ namespace MathForGames
                 (int)((WorldPosition.Y + Forward.Y) * 32),
                 Color.WHITE
             );
+
+            Raylib.DrawCircleLines(
+                (int)(WorldPosition.X * 32),
+                (int)(WorldPosition.Y * 32),
+                30, 
+                Color.WHITE
+                );
 
             //Changes the color of the console text to be this actors color
             Console.ForegroundColor = _color;
